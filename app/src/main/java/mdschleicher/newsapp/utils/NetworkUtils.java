@@ -16,6 +16,24 @@ public class NetworkUtils {
     final static String PARAM_APIKEY = "apiKey";
     final static String apiKey = "4d8af6f380b446c9b942b0a2d6170246";
 
+    public static URL buildUrl() {
+        Uri builtUri = Uri.parse(NEWSAPI_BASE_URL).buildUpon()
+                .appendQueryParameter(PARAM_SOURCE, source)
+                .appendQueryParameter(PARAM_SORT, sortBy)
+                .appendQueryParameter(PARAM_APIKEY, apiKey)
+                .build();
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch(MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        return url;
+    }
+
+
     public static String getResponseFromHttpUrl(URL url) throws IOException {
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
