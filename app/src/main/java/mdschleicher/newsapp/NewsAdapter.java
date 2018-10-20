@@ -2,6 +2,8 @@ package mdschleicher.newsapp;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,10 +46,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder>{
         return mNews.size();
     }
 
-    public class NewsHolder extends RecyclerView.ViewHolder{
+    public class NewsHolder extends RecyclerView.ViewHolder  {
         TextView title;
         TextView description;
         TextView date;
+
 
         public NewsHolder(View itemView) {
             super(itemView);
@@ -56,11 +59,25 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder>{
             date = (TextView) itemView.findViewById(R.id.date);
         }
 
-        void bind(int listIndex) {
+        void bind(final int listIndex) {
             title.setText(mNews.get(listIndex).getTitle());
             description.setText(mNews.get(listIndex).getDescription());
             date.setText(mNews.get(listIndex).getPublishedAt());
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Uri webpage = Uri.parse(mNews.get(listIndex).getUrl());
+                    Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+
+                    if(intent.resolveActivity(mContext.getPackageManager()) != null) {
+                        mContext.startActivity(intent);
+                    }
+                }
+            });
+
         }
+
+
     }
 }
