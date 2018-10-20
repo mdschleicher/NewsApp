@@ -1,3 +1,6 @@
+package mdschleicher.newsapp;
+
+
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,11 +12,13 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+import mdschleicher.newsapp.models.NewsItem;
+
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder>{
     Context mContext;
     ArrayList<NewsItem> mNews;
 
-    public RepoAdapter(Context context, ArrayList<NewsItem> news){
+    public NewsAdapter(Context context, ArrayList<NewsItem> news){
         this.mContext = context;
         this.mNews = news;
     }
@@ -40,18 +45,21 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder>{
     }
 
     public class NewsHolder extends RecyclerView.ViewHolder{
-        TextView name;
-        TextView url;
+        TextView title;
+        TextView description;
+        TextView date;
 
-        public RepoHolder(View itemView) {
+        public NewsHolder(View itemView) {
             super(itemView);
-            name = (TextView) itemView.findViewById(R.id.name);
-            url = (TextView) itemView.findViewById(R.id.url);
+            title = (TextView) itemView.findViewById(R.id.title);
+            description = (TextView) itemView.findViewById(R.id.description);
+            date = (TextView) itemView.findViewById(R.id.date);
         }
 
         void bind(int listIndex) {
-            name.setText(mNews.get(listIndex).getName());
-            url.setText(mNews.get(listIndex).getUrl());
+            title.setText(mNews.get(listIndex).getTitle());
+            description.setText(mNews.get(listIndex).getDescription());
+            date.setText(mNews.get(listIndex).getPublishedAt());
 
         }
     }
