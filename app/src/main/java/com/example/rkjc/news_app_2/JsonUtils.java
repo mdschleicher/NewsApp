@@ -1,16 +1,14 @@
-package mdschleicher.newsapp.utils;
+package com.example.rkjc.news_app_2;
+
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 
-import mdschleicher.newsapp.models.NewsItem;
-
-public class JSONUtils {
-
-    public static ArrayList<NewsItem> makeNewsItemList(String jsonResult){
+public class JsonUtils {
+    public static ArrayList<NewsItem> parseNews(String jsonResult){
         ArrayList<NewsItem> newsList = new ArrayList<>();
         try {
             JSONObject mainJSONObject = new JSONObject(jsonResult);
@@ -25,7 +23,7 @@ public class JSONUtils {
                         item.getString("url"),
                         item.getString("urlToImage"),
                         item.getString("publishedAt")
-                        ));
+                ));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -33,3 +31,5 @@ public class JSONUtils {
         return newsList;
     }
 }
+
+

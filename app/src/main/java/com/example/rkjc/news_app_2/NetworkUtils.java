@@ -1,4 +1,4 @@
-package mdschleicher.newsapp.utils;
+package com.example.rkjc.news_app_2;
 
 import android.net.Uri;
 
@@ -10,7 +10,6 @@ import java.net.URL;
 import java.util.Scanner;
 
 public class NetworkUtils {
-
     final static String NEWSAPI_BASE_URL = "https://newsapi.org/v1/articles";
     final static String PARAM_SOURCE = "source";
     final static String source = "the-next-web";
@@ -46,7 +45,7 @@ public class NetworkUtils {
             Scanner scanner = new Scanner(in);
             scanner.useDelimiter("\\A");
 
-            if(scanner.hasNext())
+            if (scanner.hasNext())
                 return scanner.next();
             else
                 return null;
@@ -55,4 +54,5 @@ public class NetworkUtils {
             urlConnection.disconnect();
         }
     }
+
 }

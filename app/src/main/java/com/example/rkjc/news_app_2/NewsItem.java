@@ -1,4 +1,4 @@
-package mdschleicher.newsapp.models;
+package com.example.rkjc.news_app_2;
 
 public class NewsItem {
     private String author;
