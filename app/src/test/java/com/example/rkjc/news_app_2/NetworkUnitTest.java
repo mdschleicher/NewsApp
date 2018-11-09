@@ -15,7 +15,7 @@ public class NetworkUnitTest {
 
     @Test
     public void networkCallReturnsUsableJSON() throws Exception {
-        URL url = new URL("https://newsapi.org/v1/articles?source=the-next-web&sortBy=latest&apiKey=027ae063a4b145d9a7dbf456b328d889");
+        URL url = new URL("https://newsapi.org/v1/articles?source=the-next-web&sortBy=latest&apiKey=4d8af6f380b446c9b942b0a2d6170246");
         String result = NetworkUtils.getResponseFromHttpUrl(url);
         System.out.println(result);
         assert(result.contains("\"status\":\"ok\""));
