@@ -1,7 +1,11 @@
 package com.example.rkjc.news_app_2;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,24 +22,33 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private NewsRecyclerViewAdapter mAdapter;
-    private ArrayList<NewsItem> articles = new ArrayList<>();
+    //private ArrayList<NewsItem> articles = new ArrayList<>();
+    private NewsItemViewModel mNewsItemViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mNewsItemViewModel = ViewModelProviders.of(this).get(NewsItemViewModel.class);
         mRecyclerView = (RecyclerView)findViewById(R.id.news_recyclerview);
-        mAdapter = new NewsRecyclerViewAdapter(this, articles);
+        mAdapter = new NewsRecyclerViewAdapter(this, mNewsItemViewModel);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        mNewsItemViewModel.getmAllNewsItems().observe(this, new Observer<List<NewsItem>>() {
+            @Override
+            public void onChanged(@Nullable List<NewsItem> newsItems) {
+                mAdapter.setNewsItems(newsItems);
+            }
+        });
 
     }
 
@@ -53,15 +66,14 @@ public class MainActivity extends AppCompatActivity {
         int itemThatWasClickedId = item.getItemId();
         if (itemThatWasClickedId == R.id.action_search) {
             URL url = makeNewsSearchQuery();
-            NewsAppQueryTask task = new NewsAppQueryTask();
-            task.execute(url);
+            mNewsItemViewModel.sync(url);
 
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    class NewsAppQueryTask extends AsyncTask<URL,Void, String> {
+    /*class NewsAppQueryTask extends AsyncTask<URL,Void, String> {
 
         @Override
         protected String doInBackground(URL... urls) {
@@ -90,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
             mAdapter.mNews.addAll(articles);
             mAdapter.notifyDataSetChanged();
         }
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

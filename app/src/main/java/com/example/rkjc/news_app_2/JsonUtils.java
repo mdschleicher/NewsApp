@@ -6,10 +6,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
+import java.util.List;
 
 public class JsonUtils {
-    public static ArrayList<NewsItem> parseNews(String jsonResult){
-        ArrayList<NewsItem> newsList = new ArrayList<>();
+    public static List<NewsItem> parseNews(String jsonResult){
+        List<NewsItem> newsList = new ArrayList<>();
         try {
             JSONObject mainJSONObject = new JSONObject(jsonResult);
             JSONArray items = mainJSONObject.getJSONArray("articles");

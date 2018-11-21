@@ -1,5 +1,6 @@
 package com.example.rkjc.news_app_2;
 
+import android.arch.lifecycle.LiveData;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,15 +12,18 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class NewsRecyclerViewAdapter  extends RecyclerView.Adapter<NewsRecyclerViewAdapter.NewsViewHolder> {
     Context mContext;
-    ArrayList<NewsItem> mNews;
+    //ArrayList<NewsItem> mNews;
+    private List<NewsItem> mNews;
+    private NewsItemViewModel viewModel;
 
-    public NewsRecyclerViewAdapter(Context context, ArrayList<NewsItem> news){
+    public NewsRecyclerViewAdapter(Context context, NewsItemViewModel viewModel){
         this.mContext = context;
-        this.mNews = news;
+        this.viewModel = viewModel;
     }
 
     @Override
@@ -38,9 +42,15 @@ public class NewsRecyclerViewAdapter  extends RecyclerView.Adapter<NewsRecyclerV
         holder.bind(position);
     }
 
+    void setNewsItems(List<NewsItem> newsItems) {
+        mNews = newsItems;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
-        return mNews.size();
+        if(mNews != null) return mNews.size();
+        else return 0;
     }
 
     public class NewsViewHolder extends RecyclerView.ViewHolder  {
