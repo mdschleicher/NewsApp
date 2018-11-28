@@ -9,7 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,21 +58,26 @@ public class NewsRecyclerViewAdapter  extends RecyclerView.Adapter<NewsRecyclerV
 
     public class NewsViewHolder extends RecyclerView.ViewHolder  {
         TextView title;
-        TextView description;
-        TextView date;
+        TextView abstr;
+        ImageView img;
 
 
         public NewsViewHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.title);
-            description = (TextView) itemView.findViewById(R.id.description);
-            date = (TextView) itemView.findViewById(R.id.date);
+            abstr = (TextView) itemView.findViewById(R.id.abstr);
+            img = (ImageView) itemView.findViewById(R.id.img);
         }
 
         void bind(final int listIndex) {
-            title.setText("Title: " + mNews.get(listIndex).getTitle());
-            description.setText("Description: " + mNews.get(listIndex).getDescription());
-            date.setText("Date: " + mNews.get(listIndex).getPublishedAt());
+            title.setText(mNews.get(listIndex).getTitle());
+            abstr.setText(mNews.get(listIndex).getPublishedAt());
+            abstr.append(" . ");
+            abstr.append(mNews.get(listIndex).getDescription());
+
+            if(mNews.get(listIndex).getUrlToImage() != null) {
+                Picasso.get().load(mNews.get(listIndex).getUrlToImage()).into(img);
+            }
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
