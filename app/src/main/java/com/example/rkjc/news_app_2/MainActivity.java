@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        NewsAppBackgroupUpdaterUtilities.schedulerBackgroudUpdater(this);
+
         mNewsItemViewModel.getmAllNewsItems().observe(this, new Observer<List<NewsItem>>() {
             @Override
             public void onChanged(@Nullable List<NewsItem> newsItems) {

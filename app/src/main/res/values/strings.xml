@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">news-app-2</string>
     <string name="menu">Refresh</string>
+
+    <string name="main_notification_channel_name">Primary</string>
+    <string name="background_updater_notification_title">Background Updater</string>
+    <string name="background_updater_notification_body">Background Updater has updated local copy of news articles!</string>
 </resources>

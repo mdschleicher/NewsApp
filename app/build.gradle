@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.example.rkjc.news_app_2"
-        minSdkVersion 25
+        minSdkVersion 14
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -40,6 +40,8 @@ dependencies {
 // Lifecycle components
     implementation "android.arch.lifecycle:extensions:$rootProject.archLifecycleVersion"
     annotationProcessor "android.arch.lifecycle:compiler:$rootProject.archLifecycleVersion"
+//Firebase Job Dispatcher
+    implementation 'com.firebase:firebase-jobdispatcher:0.5.2'
 
 
     androidTestImplementation('com.android.support.test.espresso:espresso-contrib:2.2') {
